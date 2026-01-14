@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Targets Management</title>
+    <link rel="stylesheet" href="../edit_table/table.css">
+    <link rel="stylesheet" href="targets.css">
+</head>
+<body>
+    <div class="container">
+        <section id="targets" class="content-section">
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label for="inventory-type-filter">Inventory Type:</label>
+                    <select id="inventory-type-filter" onchange="onInventoryTypeChange(this.value)">
+                        <!-- Options populated by JS -->
+                    </select>
+                </div>
+                <div class="l8-bulk-actions">
+                    <button id="start-all-btn" class="btn btn-success btn-small" title="Start all targets of this type">
+                        Start All
+                    </button>
+                    <button id="stop-all-btn" class="btn btn-danger btn-small" title="Stop all targets of this type">
+                        Stop All
+                    </button>
+                </div>
+            </div>
+            <div id="targets-table-container"></div>
+        </section>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+
+    <script src="config.js"></script>
+    <script src="../edit_table/table.js"></script>
+    <script src="targets.js"></script>
+    <script src="targets-hosts.js"></script>
+</body>
+</html>

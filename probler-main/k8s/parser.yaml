@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: probler-parser
+  labels:
+    name: probler-parser
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: probler-parser
+  name: probler-parser
+  labels:
+    app: probler-parser
+spec:
+  replicas: 12
+  selector:
+    matchLabels:
+      app: probler-parser
+  template:
+    metadata:
+      labels:
+        app: probler-parser
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: probler-parser
+                topologyKey: kubernetes.io/hostname
+      containers:
+        - name: probler-parser
+          image: saichler/probler-parser:latest
+          imagePullPolicy: Always
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+          volumeMounts:
+            - name: hdata
+              mountPath: /data
+      volumes:
+        - name: hdata
+          hostPath:
+            path: /data
+            type: DirectoryOrCreate

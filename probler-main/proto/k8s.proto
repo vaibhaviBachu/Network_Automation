@@ -1,0 +1,155 @@
+/*
+ * © 2025 Sharon Aicler (saichler@gmail.com)
+ *
+ * Layer 8 Ecosystem is licensed under the Apache License, Version 2.0.
+ * You may obtain a copy of the License at:
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+syntax = "proto3";
+
+package types;
+
+option java_multiple_files = true;
+option java_outer_classname = "Types";
+option java_package = "com.k8s.types";
+option go_package = "./types";
+
+message K8sReadyState {
+  int32 count = 1;
+  int32 outof = 2;
+}
+
+message K8sRestartsState {
+  int32 count = 1;
+  string ago = 2;
+}
+
+enum K8sPodStatus {
+  Invalid_Pod_Status = 0;
+  Running = 1;
+  Pending = 2;
+  Succeeded = 3;
+  Failed = 4;
+  Unknown = 5;
+  CrashLoopBackOff = 6;
+  Terminating = 7;
+  ContainerCreating = 8;
+  ImagePullBackOff = 9;
+  Error = 10;
+  Completed = 11;
+}
+
+enum K8sNodeStatus {
+  Invalid_Node_Status = 0;
+  Ready = 1;
+}
+
+message K8sClusterList {
+  repeated K8sCluster list = 1;
+}
+
+message K8sCluster {
+  string name = 1;
+  map<string, K8sNode> nodes = 2;
+  map<string, K8sPod> pods = 3;
+  map<string, K8sDeployment> deployments = 4;
+  map<string, K8sStatefulSet> statefulsets = 5;
+  map<string, K8sDaemonSet> daemonsets = 6;
+  map<string, K8sService> services = 7;
+  map<string, K8sNamespace> namespaces = 8;
+  map<string, K8sNetworkPolicy> networkpolicies = 9;
+}
+
+message K8sPod {
+  string namespace = 1;
+  string name = 2;
+  K8sReadyState ready = 3;
+  K8sPodStatus status = 4;
+  K8sRestartsState restarts = 5;
+  string age = 6;
+  string ip = 7;
+  string node = 8;
+  string nominated_node = 9;
+  string readiness_gates = 10;
+}
+
+message K8sNode {
+  string name = 1;
+  K8sNodeStatus status = 2;
+  string roles = 3;
+  string age = 4;
+  string version = 5;
+  string internal_ip = 6;
+  string external_ip = 7;
+  string os_image = 8;
+  string kernel_version = 9;
+  string container_runtime = 10;
+}
+
+message K8sDeployment {
+  string namespace = 1;
+  string name = 2;
+  string ready = 3;
+  string up_to_date = 4;
+  string available = 5;
+  string age = 6;
+  string containers = 7;
+  string images = 8;
+  string selector = 9;
+}
+
+message K8sStatefulSet {
+  string namespace = 1;
+  string name = 2;
+  string ready = 3;
+  string age = 4;
+  string containers = 5;
+  string images = 6;
+}
+
+message K8sDaemonSet {
+  string namespace = 1;
+  string name = 2;
+  string desired = 3;
+  string current = 4;
+  string ready = 5;
+  string up_to_date = 6;
+  string available = 7;
+  string node_selector = 8;
+  string age = 9;
+  string containers = 10;
+  string images = 11;
+  string selector = 12;
+}
+
+message K8sService {
+  string namespace = 1;
+  string name = 2;
+  string type = 3;
+  string cluster_ip = 4;
+  string external_ip = 5;
+  string ports = 6;
+  string age = 7;
+  string selector = 8;
+}
+
+message K8sNamespace {
+  string name = 1;
+  string status = 2;
+  string age = 3;
+}
+
+message K8sNetworkPolicy {
+  string namespace = 1;
+  string name = 2;
+  string pod_selector = 3;
+  string age = 4;
+}
