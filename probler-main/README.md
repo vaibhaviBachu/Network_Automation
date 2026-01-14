@@ -1,7 +1,6 @@
 # Probler - Network Automation & Monitoring Platform
 
 [![Go Version](https://img.shields.io/badge/Go-1.23.8-blue.svg)](https://golang.org/)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-Ready-green.svg)](https://kubernetes.io/)
 
 A comprehensive microservices-based network automation and monitoring platform that implements a "data as a service" approach with the core philosophy: **Poll → Parse → Model → Cache → Persist**.
